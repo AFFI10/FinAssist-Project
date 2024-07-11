@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Market BOT</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Welcome to the Stock Market BOT</h1>
+    <div id="chat-box">
+        <div id="messages"></div>
+    </div>
+    <input type="text" id="user-input" placeholder="Type your message here..." />
+    <button id="send-btn">Send</button>
+
+    <script>
+        $(document).ready(function(){
+            $('#send-btn').click(function(){
+                var userText = $('#user-input').val();
+                if(userText !== ""){
+                    $('#messages').append('<div><b>You:</b> ' + userText + '</div>');
+                    $.get("/get_response", {msg: userText}, function(data){
+                        $('#messages').append('<div><b>Bot:</b> ' + data + '</div>');
+                    });
+                    $('#user-input').val('');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
